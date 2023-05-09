@@ -1,0 +1,22 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_entity_presave().
+ */
+function my_custom_module01_entity_presave(EntityInterface $entity) {
+  // エンティティがノードかどうか、コンテンツタイプが "基本ページ"または "記事 "であるかどうかを確認する.
+  if ($entity instanceof NodeInterface && in_array($entity->bundle(), ['page', 'article'])) {
+    // ボディフィールドの値を取得する。
+    $body_value = $entity->body->value;
+    // Replace "delicious" with "yummy".
+    $body_value = str_replace('delicious', 'yummy', $body_value);
+
+    // Replace "https://www.drupal.org" with "https://WWW.DRUPAL.ORG".
+    $body_value = str_replace('https://www.drupal.org', 'https://WWW.DRUPAL.ORG', $body_value);
+    // 更新されたボディ値をエンティティに戻す。
+    $entity->body->value = $body_value;
+  }
+}

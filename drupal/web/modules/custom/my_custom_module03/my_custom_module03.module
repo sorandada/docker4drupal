@@ -1,0 +1,63 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\path_alias\PathAliasInterface;
+
+/**
+ * Implements hook_node_insert().
+ */
+function my_custom_module03_node_insert(EntityInterface $node) {
+    if ($node->bundle() == 'recipe') {
+  
+      $url_alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $node->id());
+  
+      // URLエイリアスが "recipes "と等しいかどうかを確認する.
+      if ($url_alias === '/recipes') {
+        // recipe_instructionフィールドの文字列 "minutes "を "mins "に置き換え.
+        _my_custom_module03_replace_minutes_with_mins($node);
+  
+        // 更新されたノードを保存.
+        $node->save();
+      }
+    }
+}
+
+/**
+ * Implements hook_path_alias_update().
+ */
+function my_custom_module03_path_alias_update(PathAliasInterface $path_alias) {
+  // パスエイリアスからノードを取得.
+  $path = $path_alias->getPath();
+  if (preg_match('/^\/node\/(\d+)$/', $path, $matches)) {
+    $node = \Drupal::entityTypeManager()->getStorage('node')->load($matches[1]);
+
+    // ノードが存在し、'recipe'コンテンツタイプであるかどうかを確認.
+    if ($node instanceof EntityInterface && $node->bundle() == 'recipe') {
+      // ノードのURLエイリアスを取得.
+      $url_alias = $path_alias->getAlias();
+
+      // URLエイリアスが "recipes "と等しいかどうかを確認する.
+      if ($url_alias === '/recipes') {
+        // recipe_instructionフィールドの文字列 "minutes "を "mins "に置き換え.
+        _my_custom_module03_replace_minutes_with_mins($node);
+        // 更新されたノードを保存.
+        $node->save();
+      }
+    }
+  }
+}
+
+/**
+ * Replace the string "minutes" with "mins" in the recipe_instruction field.
+ */
+function _my_custom_module03_replace_minutes_with_mins(EntityInterface $node) {
+  // recipe_instructionフィールドの内容を取得.
+  $recipe_instruction_value = $node->recipe_instruction->value;
+
+  // recipe_instructionフィールドの文字列 "minutes "を "mins "に置き換え.
+  $recipe_instruction_value = str_replace('minutes', 'mins', $recipe_instruction_value);
+
+  // .
+  $node->recipe_instruction->value = $recipe_instruction_value;
+
+}

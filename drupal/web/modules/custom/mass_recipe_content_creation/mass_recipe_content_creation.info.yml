@@ -1,0 +1,5 @@
+name: Mass Recipe Content Creation
+type: module
+description: Drushコマンドを使用して、タイトルと本文の値を指定した複数のRecipeコンテンツアイテムを作成するカスタムモジュールです。
+core_version_requirement: ^10.0
+package: Custom

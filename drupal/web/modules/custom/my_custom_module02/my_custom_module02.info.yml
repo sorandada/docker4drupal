@@ -1,0 +1,5 @@
+name: My Custom Module 02
+description: 「基本ページ」コンテンツタイプの「Title」フィールドに入力された文字列"Umami" を "this site"に変更するカスタムモジュール
+package: Custom
+type: module
+core_version_requirement: ^10

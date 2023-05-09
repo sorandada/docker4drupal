@@ -1,0 +1,5 @@
+name: My Drush Module 03
+type: module
+description: URLエイリアス「/recipes/*」の「Recipe」コンテンツタイプの「recipe_instructions」フィールドに入力された文字列"minutes"を"mins"に変更するカスタム Drush コマンド
+core_version_requirement: ^10
+package: Custom

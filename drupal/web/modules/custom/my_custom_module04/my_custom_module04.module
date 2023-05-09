@@ -1,0 +1,62 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\path_alias\PathAliasInterface;
+
+/**
+ * Implements hook_node_insert().
+ */
+function my_custom_module04_node_insert(EntityInterface $node) {
+  
+  $url_alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $node->id());
+
+  // URLエイリアスが "recipes "と等しいかどうかを確認.
+  if ($url_alias !== '/recipes') {
+    // titleフィールドの文字列 "delicious "を "yummy "に置き換え.
+    _my_custom_module04_replace_delicious_with_yummy($node);
+
+    // 更新されたノードを保存.
+    $node->save();
+  }
+    
+}
+
+/**
+ * Implements hook_path_alias_update().
+ */
+function my_custom_module04_path_alias_update(PathAliasInterface $path_alias) {
+  // パスエイリアスからノードを取得する.
+  $path = $path_alias->getPath();
+  if (preg_match('/^\/node\/(\d+)$/', $path, $matches)) {
+    $node = \Drupal::entityTypeManager()->getStorage('node')->load($matches[1]);
+
+    // ノードが存在するかどうかを確認.
+    if ($node instanceof EntityInterface) {
+      // ノードのURLエイリアスを取得.
+      $url_alias = $path_alias->getAlias();
+
+      // URLエイリアスが "recipes "と等しいかどうかを確認.
+      if ($url_alias !== '/recipes') {
+        // titleフィールドの文字列 "delicious "を "yummy "に置き換え.
+        _my_custom_module04_replace_delicious_with_yummy($node);
+        // 更新されたノードを保存.
+        $node->save();
+      }
+    }
+  }
+}
+
+/**
+ * titleフィールドの文字列 "delicious "を "yummy "に置き換え.
+ */
+function _my_custom_module04_replace_delicious_with_yummy(EntityInterface $node) {
+  // Titleフィールドの値を取得する.
+  $title_value = $node->label();
+
+  // Titleフィールドの文字列 "delicious "を "yummy "に置き換え.
+  $title_value = str_replace('delicious', 'yummy', $title_value);
+
+  // 変更した内容でTitleフィールドを更新する.
+  $node->setTitle($title_value);
+
+}

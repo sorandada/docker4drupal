@@ -1,0 +1,5 @@
+services:
+  mass_content_creation.commands:
+    class: Drupal\mass_content_creation\Commands\MassContentCreationCommands
+    tags:
+      - { name: drush.command }

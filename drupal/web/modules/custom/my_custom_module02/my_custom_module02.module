@@ -1,0 +1,19 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_entity_presave().
+ */
+function my_custom_module02_entity_presave(EntityInterface $entity) {
+  // エンティティがノードかどうか、コンテンツタイプが "基本ページ"かどうかを確認する.
+  if ($entity instanceof NodeInterface && $entity->bundle() == 'page') {
+    // titleフィールドの値を取得する。
+    $title_value = $entity->title->value;
+    // Replace "Umami" with "this site".
+    $updated_title_value = str_replace('Umami', 'this site', $title_value);
+    // 更新されたtitle値をエンティティに戻す。
+    $entity->title->value = $updated_title_value;
+  }
+}

@@ -1,0 +1,5 @@
+name: Mass Content Deletion
+type: module
+description: 'A custom Drush command to delete all specified content.'
+package: Custom
+core_version_requirement: ^10

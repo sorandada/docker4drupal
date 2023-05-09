@@ -1,0 +1,17 @@
+{
+    "name": "drupal/my_drush_module04",
+    "description": "Custom Drush commands.",
+    "type": "drupal-module",
+    "require": {
+        "drush/drush": "^11"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.x-dev"
+        },
+        "drupal": {
+            "version": "10.x",
+            "major-version": "10"
+        }
+    }
+}

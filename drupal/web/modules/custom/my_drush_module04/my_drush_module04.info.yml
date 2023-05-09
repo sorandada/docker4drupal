@@ -1,0 +1,5 @@
+name: My Drush Module 04
+type: module
+description: URLエイリアスの「/recipes/*」を除く「すべて」のコンテンツタイプの「Title」フィールドに入力された文字列 "delicious "を "yummy "に変更するカスタム Drush コマンド
+core_version_requirement: ^10
+package: Custom

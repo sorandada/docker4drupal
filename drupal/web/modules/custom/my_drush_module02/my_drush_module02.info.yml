@@ -1,0 +1,5 @@
+name: My Drush Module 02
+type: module
+description: 「基本ページ」コンテンツタイプの「Title」フィールドに入力された文字列"Umami" を "this site"に変更するカスタム Drush コマンド
+core_version_requirement: ^10
+package: Custom

@@ -1,0 +1,5 @@
+services:
+  mass_content_deletion.commands:
+    class: Drupal\mass_content_deletion\Commands\MassContentDeletionCommands
+    tags:
+      - { name: drush.command }

@@ -1,0 +1,5 @@
+name: Mass Content Creation
+type: module
+description: A custom module to create multiple content items with specified title and body value using Drush command.
+core_version_requirement: ^10.0
+package: Custom

@@ -1,0 +1,5 @@
+name: My Custom Module 01
+type: module
+description: 「基本ページ」と「記事」コンテンツタイプの「body」フィールドに入力された文字列"delicious"を"yummy"に、"https://www.drupal.org"を"https://WWW.DRUPAL.ORG"に変更するカスタムモジュール
+package: Custom
+core_version_requirement: ^10

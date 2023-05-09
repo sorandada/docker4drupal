@@ -1,0 +1,6 @@
+services:
+  mass_recipe_content_creation.commands:
+    class: Drupal\mass_recipe_content_creation\Commands\MassRecipeContentCreationCommands
+    arguments: ['@entity_type.manager']
+    tags:
+      - { name: drush.command }
